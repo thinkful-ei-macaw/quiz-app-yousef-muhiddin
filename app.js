@@ -73,19 +73,33 @@ function renderQuestion() {
 </section>
 `);
   $('form').submit(function(e){
-    e.preventDefault()
-    nextQuestion()
-  })
+    e.preventDefault();
+    nextQuestion();
+  });
+}
+
+function getUserAnswer() {
+  
+
+
+  return;
+}
+
+function getFeedback(userAnswer) {
+  if(userAnswer === getCurrentQuestion().correctAnswer) {
+    let currentScore = getCurrentQuestion().score++;
+    let currentQuestion = getCurrentQuestion().questionNumber;
+    $('main').html(`<h2>Score: ${currentScore}</h2> <h2>Question ${getCurrentQuestion}/5 <p>You got it correct!</p>`);
+  }
 }
 
 
 function nextQuestion(){
-  $('main').html('<button type="submit">Submit</button>')
+  $('main').html('<button type="submit">Submit</button>');
   $('button').on('click', function(){
-      store.questionNumber++
-      renderQuestion()
-      
-  })
+    store.questionNumber++;
+    renderQuestion();      
+  });
 }
 
 function generateAnswerList(answers) {
