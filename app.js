@@ -72,6 +72,20 @@ function renderQuestion() {
 	</form>
 </section>
 `);
+  $('form').submit(function(e){
+    e.preventDefault()
+    nextQuestion()
+  })
+}
+
+
+function nextQuestion(){
+  $('main').html('<button type="submit">Submit</button>')
+  $('button').on('click', function(){
+      store.questionNumber++
+      renderQuestion()
+      
+  })
 }
 
 function generateAnswerList(answers) {
@@ -82,6 +96,7 @@ function generateAnswerList(answers) {
 function handleQuizApp() {
   //renderIntroView();
   renderQuestion();
+  
 }
 
 $(handleQuizApp);
