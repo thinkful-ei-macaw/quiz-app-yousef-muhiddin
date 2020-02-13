@@ -1,11 +1,12 @@
 /**
  * Example store structure
  */
+'use strict';
 const store = {
   // 5 or more questions are required
   questions: [
     {
-      question: "I mean, funny like I'm a clown? I amuse you?",
+      question: 'I mean, funny like I\'m a clown? I amuse you?',
       answers: [
         'Goodfellas',
         'Star Wars',
@@ -25,7 +26,7 @@ const store = {
       correctAnswer: 'Forrest Gump'
     },
     {
-      question: "The greatest trick the devil ever pulled was convincing the world he didn't exist",
+      question: 'The greatest trick the devil ever pulled was convincing the world he didn\'t exist',
       answers: [
         'Rocky',
         'Avengers',
@@ -35,7 +36,7 @@ const store = {
       correctAnswer: 'The Usual Suspects'
     },
     {
-      question: "Say hello to my little friend!",
+      question: 'Say hello to my little friend!',
       answers: [
         'Goodfellas',
         'Scarface',
@@ -45,7 +46,7 @@ const store = {
       correctAnswer: 'Scarface'
     },
     {
-      question: "Carpe diem. Seize the day, boys.",
+      question: 'Carpe diem. Seize the day, boys.',
       answers: [
         'Venom',
         'Mission Impossible',
@@ -57,11 +58,26 @@ const store = {
       
     
   ],
+  quizStarted: false,
   questionNumber: 0,
-  score: 0
-  
+  score: 0  
 };
 
+function renderIntroView() {
+  $('header').html('<h1>Movie Quiz</h1>');
+  $('main').html('<button>START QUIZ</button>');
+
+}
+
+function generateAnswerList(answers) {
+  
+}
+
+function handleQuizApp() {
+  renderIntroView();
+}
+
+$(handleQuizApp);
 
 /**
  *
