@@ -7,42 +7,23 @@ const store = {
   questions: [
     {
       question: 'I mean, funny like I\'m a clown? I amuse you?',
-      answers: [
-        'Goodfellas',
-        'Star Wars',
-        'Jurassic Park',
-        'Green Mile'
-      ],
+      answers: ['Goodfellas', 'Star Wars', 'Jurassic Park', 'Green Mile'],
       correctAnswer: 'Goodfellas'
     },
     {
       question: '"Mama says, Stupid is as stupid does.',
-      answers: [
-        '1917',
-        'Forrest Gump',
-        'Casalanca',
-        'The Whole Nine Yards'
-      ],
+      answers: ['1917', 'Forrest Gump', 'Casalanca', 'The Whole Nine Yards'],
       correctAnswer: 'Forrest Gump'
     },
     {
-      question: 'The greatest trick the devil ever pulled was convincing the world he didn\'t exist',
-      answers: [
-        'Rocky',
-        'Avengers',
-        'The Usual Suspects',
-        'A quiet place'
-      ],
+      question:
+        'The greatest trick the devil ever pulled was convincing the world he didn\'t exist',
+      answers: ['Rocky', 'Avengers', 'The Usual Suspects', 'A quiet place'],
       correctAnswer: 'The Usual Suspects'
     },
     {
       question: 'Say hello to my little friend!',
-      answers: [
-        'Goodfellas',
-        'Scarface',
-        'John Wick',
-        'Fast & Furious'
-      ],
+      answers: ['Goodfellas', 'Scarface', 'John Wick', 'Fast & Furious'],
       correctAnswer: 'Scarface'
     },
     {
@@ -54,27 +35,53 @@ const store = {
         'Black Panther'
       ],
       correctAnswer: 'Dead poets society'
-    },
-      
-    
+    }
   ],
   quizStarted: false,
   questionNumber: 0,
-  score: 0  
+  score: 0
 };
 
 function renderIntroView() {
   $('header').html('<h1>Movie Quiz</h1>');
   $('main').html('<button>START QUIZ</button>');
+}
 
+function getCurrentQuestion() {
+  const questions = store['questions'];
+  let question = questions[store.questionNumber];
+  return question;
+}
+
+function renderQuestion() {
+  let q = getCurrentQuestion();
+  $('main').html(`
+<section class="questionScreen">
+	<form class="questionForm">
+		<fieldset class="radio">
+      <legend>${q.question}</legend>
+      ${q.answers.map(answer => {
+    return `<label>
+				<input type="radio" value="${answer}" name="answer" required>
+				${answer}
+      </label>`;
+  }).join('')}			
+      
+		</fieldset>
+		<button type="submit">Submit</button>
+	</form>
+</section>
+`);
 }
 
 function generateAnswerList(answers) {
-  
+  let questions = store['questions'];
+  return;
 }
 
 function handleQuizApp() {
-  renderIntroView();
+  //renderIntroView();
+  renderQuestion();
 }
 
 $(handleQuizApp);
@@ -91,5 +98,3 @@ $(handleQuizApp);
  * You may add attributes (classes, ids, etc) to the existing HTML elements, or link stylesheets or additional scripts if necessary
  *
  */
-
-
