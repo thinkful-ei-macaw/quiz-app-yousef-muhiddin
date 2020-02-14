@@ -47,10 +47,13 @@ const store = {
 function renderIntroView() {
   $('header').html('<h1>Movie Quiz</h1>');
   $('main').html('<button>START QUIZ</button>');
+  $('button').on('click', function() {
+    renderQuestion();
+  });
 }
 
 function getCurrentQuestion() {
-  const questions = store['questions'];
+  let questions = store['questions'];
   let question = questions[store.questionNumber];
   return question;
 }
@@ -82,39 +85,44 @@ function renderQuestion() {
 function getFeedback() {
   let correctAnswer = getCurrentQuestion().correctAnswer;
   //let currentScore = store.score;
-  let currentQuestion = store.questionNumber;
+  store.questionNumber++;
+  let currentQuestionNumber = store.questionNumber;
   $('button'). click(function(){
     var radioValue = $(':checked'). val();
     if(radioValue === correctAnswer) {
-      $('main').html(`<h2>Score: ${++store.score}</h2> <h2>Question ${++currentQuestion}/5</h2> 
+      $('main').html(`<h2>Score: ${++store.score}</h2> <h2>Question ${currentQuestionNumber}/5</h2> 
       <p>You got it correct!</p><button>Next</button>`);
     } else {
-      $('main').html(`<h2>Score: ${store.score}</h2> <h2>Question ${++currentQuestion}/5</h2>
+      $('main').html(`<h2>Score: ${store.score}</h2> <h2>Question ${currentQuestionNumber}/5</h2>
        <p>You got it wrong!</p><h3>Correct answer is ${correctAnswer}!<button>Next</button>`);
     }
-    nextQuestion();
+    if(currentQuestionNumber === 5) {
+      restartQuiz();
+    } else {
+      nextQuestion();
+    }
   });
  
 }
 
 function nextQuestion(){
-  //$('main').html('<button type="submit">Submit</button>');
   $('button').on('click', function(){
-    store.questionNumber++;
-    renderQuestion();      
+    renderQuestion();   
   });
 }
 
 function restartQuiz() {
-  
+  store.score = 0;
+  store.questionNumber = 0;
+  $('button').html('Try Again').on('click', function() {
+    renderIntroView();
+  });      
 }
 
 
+
 function handleQuizApp() {
-  renderIntroView();
-  renderQuestion();
-  getFeedback();
-  
+  renderIntroView();  
 }
 
 $(handleQuizApp);
