@@ -6,7 +6,42 @@
   * https://github.com/andreacardybailey/responsive_example/blob/master/styles/responsive-base.css 
   *
 */
-body {
+* {
   box-sizing: border-box;
+}
+
+body {
+  width: 40%;
+  margin: 50px auto;
+  border: 2px solid gray;
   text-align: center;
+  border-radius: 5px;
+  padding: 30px;
+  height: 500px;
+  box-shadow: 5px 10px #888888;
+  font-size: 1.2em;
+  font-family: 'Roboto', sans-serif, 'Open Sans', 'Montserrat';
+  box-sizing: border-box;
+}
+
+h1 {
+  color: brown;
+}
+
+form {
+  margin: 10% 20%;
+  text-align: left;
+}
+button {
+  margin: 40px 30%;
+  padding: 15px;
+  border-radius: 5px;
+  color: brown;
+  font-weight: bold;
+  transition: all .2s ease-in-out; 
+}
+
+button:hover {
+  transform: scale(1.1); 
+  background-color: goldenrod;
 }

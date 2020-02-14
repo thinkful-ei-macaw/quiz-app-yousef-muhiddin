@@ -58,16 +58,13 @@ function renderQuestion() {
   $('main').html(`
 <section class="questionScreen">
 	<form class="questionForm">
-		<fieldset class="radio">
-      <legend>${q.question}</legend>
+      <legend>${q.question}</legend><br>
       ${q.answers.map(answer => {
     return `<label>
 				<input type="radio" value="${answer}" name="answer" required>
 				${answer}
-      </label>`;
-  }).join('')}			
-      
-		</fieldset>
+      </label><br>`;
+  }).join('')}	
 		<button type="submit">Submit</button>
 	</form>
 </section>
@@ -78,21 +75,19 @@ function renderQuestion() {
   });
 }
 
-function getUserAnswer() {
-  
 
-
-  return;
+function getFeedback() {
+  let currentScore = store.score;
+  let currentQuestion = store.questionNumber;
+  $('button'). click(function(){
+    var radioValue = $(":checked"). val();
+    if(radioValue === getCurrentQuestion().correctAnswer) {
+      $('main').html(`<h2>Score: ${++currentScore}</h2> <h2>Question ${++currentQuestion}/5</h2> <p>You got it correct!</p>`);
+    } else {
+      $('main').html(`<h2>Score: ${currentScore}</h2> <h2>Question ${currentQuestion}/5</h2> <p>You got it wrong!</p>`);
+    }
+  });
 }
-
-function getFeedback(userAnswer) {
-  if(userAnswer === getCurrentQuestion().correctAnswer) {
-    let currentScore = getCurrentQuestion().score++;
-    let currentQuestion = getCurrentQuestion().questionNumber;
-    $('main').html(`<h2>Score: ${currentScore}</h2> <h2>Question ${getCurrentQuestion}/5 <p>You got it correct!</p>`);
-  }
-}
-
 
 function nextQuestion(){
   $('main').html('<button type="submit">Submit</button>');
@@ -102,14 +97,12 @@ function nextQuestion(){
   });
 }
 
-function generateAnswerList(answers) {
-  let questions = store['questions'];
-  return;
-}
+
 
 function handleQuizApp() {
-  //renderIntroView();
+  renderIntroView();
   renderQuestion();
+  getFeedback();
   
 }
 
