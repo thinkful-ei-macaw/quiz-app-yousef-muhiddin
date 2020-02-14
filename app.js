@@ -42,6 +42,8 @@ const store = {
   score: 0
 };
 
+
+
 function renderIntroView() {
   $('header').html('<h1>Movie Quiz</h1>');
   $('main').html('<button>START QUIZ</button>');
@@ -73,30 +75,39 @@ function renderQuestion() {
     e.preventDefault();
     nextQuestion();
   });
+  getFeedback();
 }
 
 
 function getFeedback() {
-  let currentScore = store.score;
+  let correctAnswer = getCurrentQuestion().correctAnswer;
+  //let currentScore = store.score;
   let currentQuestion = store.questionNumber;
   $('button'). click(function(){
-    var radioValue = $(":checked"). val();
-    if(radioValue === getCurrentQuestion().correctAnswer) {
-      $('main').html(`<h2>Score: ${++currentScore}</h2> <h2>Question ${++currentQuestion}/5</h2> <p>You got it correct!</p>`);
+    var radioValue = $(':checked'). val();
+    if(radioValue === correctAnswer) {
+      $('main').html(`<h2>Score: ${++store.score}</h2> <h2>Question ${++currentQuestion}/5</h2> 
+      <p>You got it correct!</p><button>Next</button>`);
     } else {
-      $('main').html(`<h2>Score: ${currentScore}</h2> <h2>Question ${currentQuestion}/5</h2> <p>You got it wrong!</p>`);
+      $('main').html(`<h2>Score: ${store.score}</h2> <h2>Question ${++currentQuestion}/5</h2>
+       <p>You got it wrong!</p><h3>Correct answer is ${correctAnswer}!<button>Next</button>`);
     }
+    nextQuestion();
   });
+ 
 }
 
 function nextQuestion(){
-  $('main').html('<button type="submit">Submit</button>');
+  //$('main').html('<button type="submit">Submit</button>');
   $('button').on('click', function(){
     store.questionNumber++;
     renderQuestion();      
   });
 }
 
+function restartQuiz() {
+  
+}
 
 
 function handleQuizApp() {
