@@ -46,7 +46,7 @@ const store = {
 
 function renderIntroView() {
   $('header').html('<h1>Movie Quiz</h1>');
-  $('main').html('<button>START QUIZ</button>');
+  $('main').html('<button class="start-button">PLAY</button>');
   $('button').on('click', function() {
     renderQuestion();
   });
@@ -87,14 +87,19 @@ function getFeedback() {
   //let currentScore = store.score;
   store.questionNumber++;
   let currentQuestionNumber = store.questionNumber;
-  $('button'). click(function(){
+  $('button'). on('click', function(){
     var radioValue = $(':checked'). val();
     if(radioValue === correctAnswer) {
-      $('main').html(`<h2>Score: ${++store.score}</h2> <h2>Question ${currentQuestionNumber}/5</h2> 
-      <p>You got it correct!</p><button>Next</button>`);
+      $('main').html(`<h3>Score: ${++store.score}</h3> <h3>Question ${currentQuestionNumber}/5</h3> 
+      <p class="correct">CORRECT!</p><button>Next</button>`);
+    } else if(radioValue === undefined) {
+      $('main').html(`<h3>Score: ${store.score}</h3> <h3>Question ${currentQuestionNumber}/5</h3>
+       <p class="missed">You missed a queston!</p><h3>Correct answer: <span class="special">
+       ${correctAnswer}!</span><button>Next</button>`);
     } else {
-      $('main').html(`<h2>Score: ${store.score}</h2> <h2>Question ${currentQuestionNumber}/5</h2>
-       <p>You got it wrong!</p><h3>Correct answer is ${correctAnswer}!<button>Next</button>`);
+      $('main').html(`<h3>Score: ${store.score}</h3> <h3>Question ${currentQuestionNumber}/5</h3>
+       <p class="wrong">Sorry, wrong answer!</p><h3>Correct answer is <span class="special">
+       ${correctAnswer}!</span><button>Next</button>`);
     }
     if(currentQuestionNumber === 5) {
       restartQuiz();
