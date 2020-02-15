@@ -57,13 +57,13 @@ function getCurrentQuestion() {
   let question = questions[store.questionNumber];
   return question;
 }
-
+// renderOptions()
 function renderQuestion() {
   let q = getCurrentQuestion();
   $('main').html(`
 <section class="questionScreen">
 	<form class="questionForm">
-      <legend>${q.question}</legend><br>
+      <legend class="question">${q.question}</legend><br>
       ${q.answers.map(answer => {
     return `<label>
 				<input type="radio" value="${answer}" name="answer" required>
@@ -74,13 +74,14 @@ function renderQuestion() {
 	</form>
 </section>
 `);
-  $('form').submit(function(e){
+  $('form').on('submit', function(e){
     e.preventDefault();
     nextQuestion();
   });
   getFeedback();
 }
 
+// handleFormSubmit()
 
 function getFeedback() {
   let correctAnswer = getCurrentQuestion().correctAnswer;
@@ -94,14 +95,15 @@ function getFeedback() {
       <p class="correct">CORRECT!</p><button>Next</button>`);
     } else if(radioValue === undefined) {
       $('main').html(`<h3>Score: ${store.score}</h3> <h3>Question ${currentQuestionNumber}/5</h3>
-       <p class="missed">You missed a queston!</p><h3>Correct answer: <span class="special">
+       <p class="missed">You missed a queston!</p><h3 class="correctAnswer">Correct answer: <span class="special">
        ${correctAnswer}!</span><button>Next</button>`);
     } else {
       $('main').html(`<h3>Score: ${store.score}</h3> <h3>Question ${currentQuestionNumber}/5</h3>
-       <p class="wrong">Sorry, wrong answer!</p><h3>Correct answer is <span class="special">
+       <p class="wrong">Sorry, wrong answer!</p><h3>Correct answer: <span class="special">
        ${correctAnswer}!</span><button>Next</button>`);
     }
     if(currentQuestionNumber === 5) {
+      $('<p class="finished">Finished!</p>').insertBefore('button');
       restartQuiz();
     } else {
       nextQuestion();
@@ -109,6 +111,8 @@ function getFeedback() {
   });
  
 }
+// handleCorrectAnswer()
+// handleWrongAnswer()
 
 function nextQuestion(){
   $('button').on('click', function(){

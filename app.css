@@ -24,12 +24,12 @@ body {
   box-sizing: border-box;
 }
 
-h1 {
+h1, .special {
   color: blue;
 }
 
-.special {
-  color: blue;
+.question {
+  font-style: italic;
 }
 
 .missed, .wrong {
@@ -68,4 +68,9 @@ button:hover {
 .start-button:hover {
   transform: scale(1.1); 
   background-color: green;
+}
+
+p.finished {
+  font-size: 25px;
+  color: green;
 }
