@@ -1,9 +1,11 @@
-/**
- * Example store structure
- */
+/*
+* This quiz app is designed to test your knowledge on movies.
+* Written by Yousef and Muhiddin
+*/
+
 'use strict';
+
 const store = {
-  // 5 or more questions are required
   questions: [
     {
       question: 'I mean, funny like I\'m a clown? I amuse you?',
@@ -11,13 +13,12 @@ const store = {
       correctAnswer: 'Goodfellas'
     },
     {
-      question: '"Mama says, Stupid is as stupid does.',
+      question: 'Mama says, Stupid is as stupid does.',
       answers: ['1917', 'Forrest Gump', 'Casalanca', 'The Whole Nine Yards'],
       correctAnswer: 'Forrest Gump'
     },
     {
-      question:
-        'The greatest trick the devil ever pulled was convincing the world he didn\'t exist',
+      question: 'The greatest trick the devil ever pulled was convincing the world he didn\'t exist',
       answers: ['Rocky', 'Avengers', 'The Usual Suspects', 'A quiet place'],
       correctAnswer: 'The Usual Suspects'
     },
@@ -28,123 +29,137 @@ const store = {
     },
     {
       question: 'Carpe diem. Seize the day, boys.',
-      answers: [
-        'Venom',
-        'Mission Impossible',
-        'Dead poets society',
-        'Black Panther'
-      ],
+      answers: ['Venom', 'Mission Impossible', 'Dead poets society','Black Panther'],
       correctAnswer: 'Dead poets society'
     }
   ],
   quizStarted: false,
   questionNumber: 0,
-  score: 0
+  score: 0,
+  wrong: 0
 };
 
 
-function renderIntroView() {
-  $('header').html('<h1>Movie Quiz</h1> <h6> Think you know your movie history?</h6> ');
-  $('main').html('<button class="start-button">AND ACTION!</button>');
-  $('button').on('click', function() {
-    renderQuestion();
+function startQuizApp() {
+  $('header').html('<h1>Movie Quiz</h1>');
+  $('main').html('<button class="start-button">PLAY</button>');
+  $('.start-button').on('click', function() {
+    store.quizStarted = true;
+    render();
   });
 }
 
-function getCurrentQuestion() {
-  let questions = store['questions'];
-  let question = questions[store.questionNumber];
-  return question;
-}
-// renderOptions()
 function renderQuestion() {
-  let q = getCurrentQuestion();
-  $('main').html(`
-<section class="questionScreen">
-	<form class="questionForm">
-      <legend class="question">${q.question}</legend><br>
-      ${q.answers.map(answer => {
-    return `<label>
-				<input type="radio" class="check" value="${answer}" name="answer" required>
-				${answer}
-      </label><br>`;
-  }).join('')}	
-		<button type="submit">Submit</button>
-	</form>
-</section>
-`);
-  $('form').on('submit', function(e){
+  return `${store.questions[store.questionNumber].question}`;
+}
+
+function renderSubmit() {
+  $('.questionForm').on('submit', function(e) {
     e.preventDefault();
-    nextQuestion();
-  });
-  getFeedback();
-}
-
-// handleFormSubmit()
-
-function getFeedback() {
-  let correctAnswer = getCurrentQuestion().correctAnswer;
-  //let currentScore = store.score;
-  store.questionNumber++;
-  let currentQuestionNumber = store.questionNumber;
-  $('button'). on('click', function(){
-    var radioValue = $(':checked'). val();
-    if(radioValue === correctAnswer) {
-      $('main').html(`<h3>Score: ${++store.score}</h3> <h3>Question ${currentQuestionNumber}/5</h3> 
-      <p class="correct">CORRECT!</p><button>Next</button>`);
-    } else if(radioValue === undefined) {
-      $('main').html(`<h3>Score: ${store.score}</h3> <h3>Question ${currentQuestionNumber}/5</h3>
-       <p class="missed">You missed a queston!</p><h3 class="correctAnswer">Correct answer: <span class="special">
-       ${correctAnswer}!</span><button>Next</button>`);
-    } else {
-      $('main').html(`<h3>Score: ${store.score}</h3> <h3>Question ${currentQuestionNumber}/5</h3>
-       <p class="wrong">Sorry, wrong answer!</p><h3>Correct answer: <span class="special">
-       ${correctAnswer}!</span><button>Next</button>`);
-    }
-    if(currentQuestionNumber === 5) {
-      $('<p class="finished">Finished!</p>').insertBefore('button');
-      restartQuiz();
-    } else {
-      nextQuestion();
-    }
-  });
-
-}
-// handleCorrectAnswer()
-// handleWrongAnswer()
-
-function nextQuestion(){
-  $('button').on('click', function(){
-    renderQuestion();   
+    renderFeedback();
   });
 }
 
+function render() {
+  let html = '';
+  if(store.quizStarted === false) {
+    $('main').html(startQuizApp());
+  } else if(store.questionNumber < store.questions.length) {
+    html = renderOptions();
+    $('main').html(html);
+    renderSubmit();
+  } else {
+    $('main').html(renderFeedback());
+  }
+  
+}
 
-function restartQuiz() {
-  store.score = 0;
+function resetQuiz() {
+  store.quizStarted = false;
   store.questionNumber = 0;
-  $('button').html('Try Again').on('click', function() {
-    renderIntroView();
-  });      
+  store.score = 0;
+  store.wrong = 0;
 }
 
+function renderFeedback() {
+  let html = '';
+  let score = store.score;
+  let questionNum = store.questionNumber;
+  store.questionNumber++;
+  let userAnswer = $('input:checked').val();
+  let correctAnswer = store.questions[questionNum].correctAnswer;
+  if(userAnswer === correctAnswer) {
+    html += renderCorrectAnswer(score, questionNum + 1);
+    store.score++;
+  } else {
+    html += renderWrongAnswer(score, questionNum + 1, correctAnswer);
+    store.wrong++;
+  }
+  html +=  `<span class="correct">${store.score} Correct </span> |
+    <span class="incorrect">${store.wrong} Incorrect</span>`;
+  if(store.questionNumber === 5) {
+    html += '<button class="finish">FINISH</button>';
+    $('main').html(html);
+    $('button').on('click', function() {
+      endQuiz();
+    });
+  } else {
+    html += '<button class="next">NEXT</button>';
+    $('main').html(html);
+    $('button').on('click', function() {
+      render();
+    });
+  }
+}
 
+function endQuiz() {
+  $('main').html(`<p class="correct">CORRECT: <span class="totalCorrect">${store.score}</span></p>
+  <p class="incorrect">INCORRECT: <span class="totalIncorrect">${store.questions.length - store.score}</span></p>
+  <button class="again">TRY AGAIN</button><button class="exit">EXIT</button>`);
+  $('.again').on('click', function() {
+    resetQuiz();
+    store.quizStarted = true;
+    render();
+  });
+  $('.exit').on('click', function() {
+    resetQuiz();
+    startQuizApp();
+  });
+}
+
+function renderOptions() {
+  return `
+  <section class="questionScreen">
+    <form class="questionForm">
+        <legend class="question"><h3><span class="qNum">${store.questionNumber + 1}.</span>
+         "${renderQuestion()}"</h3></legend><br>
+        ${store.questions[store.questionNumber].answers.map(option => {
+    return `<label>
+          <input type="radio" value="${option}" name="answer" required>
+          ${option}
+        </label><br>`;
+  }).join('')}	
+      <button type="submit">Submit</button>
+    </form>
+  </section>
+  `;
+}
+
+function renderCorrectAnswer(score, questionNum) {
+  return `<h3>Score: <span class="score">${++score}</span></h3>
+    <h3>Question ${questionNum} of 5 remaining</h3> 
+    <p class="correct">CORRECT!</p>`;
+}
+
+function renderWrongAnswer(score, questionNum, correctAnswer) {
+  return `<h3>Score: <span class="score">${score}</span></h3>
+    <h3>Question ${questionNum} of 5 remaining</h3>
+    <p class="wrong">Sorry, wrong answer!</p><h3>Correct answer: <span class="special">
+    ${correctAnswer}!</span></h3>`;
+}
 
 function handleQuizApp() {
-  renderIntroView();  
+  startQuizApp();
 }
 
 $(handleQuizApp);
-
-/**
- *
- * Your app should include a render() function, that regenerates
- * the view each time the store is updated. See your course
- * material, consult your instructor, and reference the slides
- * for more details.
- *
- * NO additional HTML elements should be added to the index.html file.
- *
- * You may add attributes (classes, ids, etc) to the existing HTML elements, or link stylesheets or additional scripts if necessary
- *
- */

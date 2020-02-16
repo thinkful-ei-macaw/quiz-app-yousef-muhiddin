@@ -1,11 +1,4 @@
-/* Your styles should be mobile-first and responsive */
 
-/** 
-  * If you are unclear on how to utilize a mobile-first, responsive technique to write your CSS, here is an example: 
-  *
-  * https://github.com/andreacardybailey/responsive_example/blob/master/styles/responsive-base.css 
-  *
-*/
 * {
   box-sizing: border-box;
   overflow-wrap: break-word;
@@ -14,13 +7,13 @@
 }
 
 body {
-  width: 40%;
+  width: 45%;
   margin: 50px auto;
   border: 2px solid gray;
   text-align: center;
   border-radius: 5px;
-  padding: 30px;
-  height: 500px;
+  padding: 10px 20px;
+  height: 575px;
   box-shadow: 5px 10px #888888;
   font-size: 1.2em;
   font-family: 'Inconsolata', monospace;
@@ -61,6 +54,10 @@ h6 {
   color: green;
   font-weight: bold;
 }
+.incorrect {
+  color: red;
+  font-weight: bold;
+}
 
 form {
   margin: 10% 20%;
@@ -96,13 +93,30 @@ p.finished {
   color: green;
 }
 
-@media (max-width: 500px){
-	h1{font-size: 1.5em;margin:0.10rem;}
-	#count{font-size: 0.75em;}
-	fieldset{margin:0.10rem;}
-}
-
 .questionScreen {
   font-family: 'Source Code Pro', monospace;
+}
 
+.qNum {
+  border: 1px solid gold;
+  background-color: gold;
+  padding: 0px 4px;
+  margin-right: 2px;
+  border-radius: 5px;
+}
+
+.score, .totalCorrect {
+  border: 1px solid green;
+  background-color: rgb(117, 207, 117);
+  padding: 2px 10px;
+  margin: 5px;
+  border-radius: 3px;
+}
+
+.totalIncorrect {
+  border: 1px solid red;
+  background-color: lightcoral;
+  padding: 2px 10px;
+  margin: 5px;
+  border-radius: 3px;
 }
