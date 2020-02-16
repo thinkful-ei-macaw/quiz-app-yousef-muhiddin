@@ -8,6 +8,9 @@
 */
 * {
   box-sizing: border-box;
+  overflow-wrap: break-word;
+  color: rgb(75, 75, 75);
+  
 }
 
 body {
@@ -20,12 +23,29 @@ body {
   height: 500px;
   box-shadow: 5px 10px #888888;
   font-size: 1.2em;
-  font-family: 'Roboto', sans-serif, 'Open Sans', 'Montserrat';
+  font-family: 'Inconsolata', monospace;
   box-sizing: border-box;
+  box-shadow: 0px 13px 10px black;
+  transform: rotate(3deg);
+  width:350px;
+  border-width: 3px 3px 5px 5px;
+  border-radius:4% 95% 6% 95%/95% 4% 92% 5%;
+  transform: rotate(3deg);
 }
 
 h1, .special {
-  color: blue;
+  color: rgb(150, 150, 219);
+  font-family: 'Source Code Pro', monospace;
+}
+
+h1 {
+  font-family: 'Inconsolata', monospace;
+  font-size: 30px;
+  
+}
+
+h6 {
+  margin-left: 0px;
 }
 
 .question {
@@ -47,10 +67,10 @@ form {
   text-align: left;
 }
 button {
-  margin: 40px 30%;
+  margin: 27px 30%;
   padding: 15px;
   border-radius: 5px;
-  color: brown;
+  color: black;
   font-weight: bold;
   transition: all .2s ease-in-out; 
 }
@@ -58,6 +78,7 @@ button {
 button:hover {
   transform: scale(1.1); 
   background-color: goldenrod;
+  
 }
 .start-button {
   background-color: rgb(167, 51, 51);
@@ -67,10 +88,21 @@ button:hover {
 }
 .start-button:hover {
   transform: scale(1.1); 
-  background-color: green;
+  background-color: blue;
 }
 
 p.finished {
   font-size: 25px;
   color: green;
+}
+
+@media (max-width: 500px){
+	h1{font-size: 1.5em;margin:0.10rem;}
+	#count{font-size: 0.75em;}
+	fieldset{margin:0.10rem;}
+}
+
+.questionScreen {
+  font-family: 'Source Code Pro', monospace;
+
 }

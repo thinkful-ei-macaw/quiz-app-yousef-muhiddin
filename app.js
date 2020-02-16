@@ -43,10 +43,9 @@ const store = {
 };
 
 
-
 function renderIntroView() {
-  $('header').html('<h1>Movie Quiz</h1>');
-  $('main').html('<button class="start-button">PLAY</button>');
+  $('header').html('<h1>Movie Quiz</h1> <h6> Think you know your movie history?</h6> ');
+  $('main').html('<button class="start-button">AND ACTION!</button>');
   $('button').on('click', function() {
     renderQuestion();
   });
@@ -66,7 +65,7 @@ function renderQuestion() {
       <legend class="question">${q.question}</legend><br>
       ${q.answers.map(answer => {
     return `<label>
-				<input type="radio" value="${answer}" name="answer" required>
+				<input type="radio" class="check" value="${answer}" name="answer" required>
 				${answer}
       </label><br>`;
   }).join('')}	
@@ -109,7 +108,7 @@ function getFeedback() {
       nextQuestion();
     }
   });
- 
+
 }
 // handleCorrectAnswer()
 // handleWrongAnswer()
@@ -119,6 +118,7 @@ function nextQuestion(){
     renderQuestion();   
   });
 }
+
 
 function restartQuiz() {
   store.score = 0;
