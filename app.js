@@ -134,10 +134,10 @@ function renderOptions() {
         <legend class="question"><h3><span class="qNum">${store.questionNumber + 1}.</span>
          "${renderQuestion()}"</h3></legend><br>
         ${store.questions[store.questionNumber].answers.map(option => {
-    return `<label>
+    return `<label id="radio">
           <input type="radio" value="${option}" name="answer" required>
           ${option}
-        </label><br>`;
+        </label>`;
   }).join('')}	
       <button type="submit">Submit</button>
     </form>

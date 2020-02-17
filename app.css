@@ -75,8 +75,17 @@ button {
 button:hover {
   transform: scale(1.1); 
   background-color: goldenrod;
-  
+  cursor: pointer;
 }
+
+#radio, input[type="radio"] {
+  cursor: pointer;
+}
+
+#radio {
+  display: block;
+}
+
 .start-button {
   margin-top: 50%;
   background-color: rgb(167, 51, 51);
