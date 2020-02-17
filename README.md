@@ -1,3 +1,3 @@
-# muhiddinsgithub.github.io
+# quiz-app-yousef-muhiddin
 
-This movie quiz app has been written by Yousef and Muhiddin.
+This move quiz app has been written by Yousef and Muhiddin
