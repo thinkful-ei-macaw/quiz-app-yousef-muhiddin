@@ -42,7 +42,7 @@ const store = {
 
 function startQuizApp() {
   $('header').html('<h1>Movie Quiz</h1>');
-  $('main').html('<button class="start-button">PLAY</button>');
+  $('main').html('<button class="start-button">AND ACTION</button>');
   $('.start-button').on('click', function() {
     store.quizStarted = true;
     render();

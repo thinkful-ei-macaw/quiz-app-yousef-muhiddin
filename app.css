@@ -78,6 +78,7 @@ button:hover {
   
 }
 .start-button {
+  margin-top: 50%;
   background-color: rgb(167, 51, 51);
   color: beige;
   padding: 30px;
