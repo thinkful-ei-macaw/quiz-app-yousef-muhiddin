@@ -1,6 +1,6 @@
 # quiz-app-yousef-muhiddin
 
-This move quiz app has been written by Yousef and Muhiddin. 
+This movie quiz app has been written by Yousef and Muhiddin. 
 The app includes 5 multiple choice questions about quotes taken
 from movies and it is fun!
 We chose movie topic because i and my pair like this topic and 
